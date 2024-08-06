@@ -21,40 +21,10 @@ Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store L
 
 ## Setup
 
-Setup only takes about 1-2 minutes. Don't be scared by the file paths! 😊
-
-To get Registry Jumper up and running, follow these steps:
-
-### 1. Run the Installation Script
-
-Register the host program to communicate with RegJump by running the `install.cmd` script located in the installation folder.
-
-Click the path below to copy to clipboard, then press Win+R, paste it in the Run box, and press enter to run the install script.
-
-If this path doesn't exist, you may be using a non-default profile. In that case, you can find your Chrome profile path by visiting `chrome://version` and looking at the `Profile Path` line. Unfortunately, due to Chrome security restrictions, this extension cannot find the profile path automatically.
-
-The default installation path is based on your browser and operating system. For example:
-
-- **Chrome (Windows)**:
-```
-%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
-```
-- **Brave (Windows)**:
-```
-%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
-```
-- **Edge (Windows)**:
-```
-%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
-```
-- **Opera (Windows)**:
-```
- %LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
- ```
-
-### 2. Verify the Installation
-
-When you're done, press the Verify button on the Options page of the extension to make sure everything is up and running.
+- Open the `Extensions` menu
+- Click the `Registry Jumper` menu
+- Click on `Options`
+- Complete the setup by following the instructions
 
 ## Usage
 

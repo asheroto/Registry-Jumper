@@ -7,7 +7,7 @@ var openInRegJump = function (selectedText) {
   chrome.runtime.sendNativeMessage('com.asheroto.regjump', { text: selectedText.trim() }, function (response) {
     if (chrome.runtime.lastError) {
       if (chrome.runtime.lastError.message === "Specified native messaging host not found.") {
-        alert("Error communicating with RegJump. Open the Extensions menu, click the Registry Jumper menu, click on Options, and complete the setup.");
+        alert("Error communicating with RegJump. Open the Extensions menu, click the Registry Jumper menu, click on Options, and complete the setup by following the instructions.");
       }
       if (DEBUG) console.error("Native message error: " + chrome.runtime.lastError.message);
     } else {
