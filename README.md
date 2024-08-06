@@ -21,6 +21,8 @@ Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store L
 
 ## Setup
 
+Setup only takes about 1-2 minutes. Don't be scared by the file paths! 😊
+
 To get Registry Jumper up and running, follow these steps:
 
 ### 1. Run the Installation Script
