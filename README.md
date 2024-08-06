@@ -33,10 +33,22 @@ If this path doesn't exist, you may be using a non-default profile. In that case
 
 The default installation path is based on your browser and operating system. For example:
 
-- **Chrome (Windows)**: `%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd`
-- **Brave (Windows)**: `%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd`
-- **Edge (Windows)**: `%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd`
-- **Opera (Windows)**: `%LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd`
+- **Chrome (Windows)**:
+```
+%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
+```
+- **Brave (Windows)**:
+```
+%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
+```
+- **Edge (Windows)**:
+```
+%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
+```
+- **Opera (Windows)**:
+```
+ %LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<extension_id>\<version>_0\host\install.cmd
+ ```
 
 ### 2. Verify the Installation
 
