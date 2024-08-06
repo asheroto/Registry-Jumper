@@ -12,7 +12,7 @@ Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selecte
 
 - **Open Registry Keys**: Right-click on selected registry keys and open them directly in `regedit` using RegJump.
 - **Context Menu Filtering**: The context menu option to `Open in Registry Editor` is only shown for valid registry keys (e.g., HKLM, HKCU). Selecting non-registry keys will not display the option.
-- **Automated Setup**: An easy installation script to download and set up RegJump and the native messaging host.
+- **Automated Setup**: An easy installation script to download and set up RegJump and the Chrome native messaging host.
 - **Enhanced Debugging**: Improved debugging to help diagnose issues.
 
 ## Installation
@@ -29,7 +29,7 @@ Register the host program to communicate with RegJump by running the `install.cm
 
 Click the path below to copy to clipboard, then press Win+R, paste it in the Run box, and press enter to run the install script.
 
-If this path doesn't exist, you may be using a non-default profile. In that case, you can find your Chrome profile path by visiting `chrome://version` and looking at the "Profile Path" line. Unfortunately, due to Chrome security restrictions, this extension cannot find the profile path automatically.
+If this path doesn't exist, you may be using a non-default profile. In that case, you can find your Chrome profile path by visiting `chrome://version` and looking at the `Profile Path` line. Unfortunately, due to Chrome security restrictions, this extension cannot find the profile path automatically.
 
 The default installation path is based on your browser and operating system. For example:
 
