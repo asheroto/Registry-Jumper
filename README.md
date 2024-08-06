@@ -1,7 +1,17 @@
 
+[![Release](https://img.shields.io/github/v/release/asheroto/Registry-Jumper)](https://github.com/asheroto/Registry-Jumper/releases)
+[![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/asheroto/Registry-Jumper)](https://github.com/asheroto/Registry-Jumper/releases)
+[![GitHub Downloads - All Releases](https://img.shields.io/github/downloads/asheroto/Registry-Jumper/total)](https://github.com/asheroto/Registry-Jumper/releases)
+[![GitHub Sponsor](https://img.shields.io/github/sponsors/asheroto?label=Sponsor&logo=GitHub)](https://github.com/sponsors/asheroto?frequency=one-time&sponsor=asheroto)
+<a href="https://ko-fi.com/asheroto"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-Fi Button" height="20px"></a>
+<a href="https://www.buymeacoffee.com/asheroto"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=Registry-Jumper&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)" height="40px"></a>
+
 # Registry Jumper
 
 ## Overview
+
+> [!IMPORTANT]
+> This is a new extension and was just recently submitted to the Chrome Web Store. It may take a few days for it to be approved and publicly accessible.
 
 Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selected registry keys directly in Regedit using [Sysinternals RegJump](https://learn.microsoft.com/en-us/sysinternals/downloads/regjump). This tool is designed to streamline the process of navigating to specific registry keys by providing a context menu option in the browser.
 
