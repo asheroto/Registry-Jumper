@@ -1,3 +1,7 @@
+// ========================================================================== //
+// Functions
+// ========================================================================== //
+
 function verify() {
   var status = document.getElementById('status');
   status.textContent = '';
@@ -57,12 +61,38 @@ function copyToClipboard(text) {
   });
 }
 
+// ========================================================================== //
+// Event Listeners
+// ========================================================================== //
+
 document.addEventListener('DOMContentLoaded', setExtensionId);
 document.getElementById('verify').addEventListener('click', verify);
+
+// ========================================================================== //
+// Copy the text content of the element when it is clicked
+// ========================================================================== //
 
 document.querySelectorAll('.copyable').forEach(function (element) {
   element.addEventListener('click', function () {
     var textToCopy = element.textContent;
     copyToClipboard(textToCopy);
   });
+});
+
+// ========================================================================== //
+// Replace placeholders in the page that is presented to the user upon clicking the extension icon
+// ========================================================================== //
+document.addEventListener('DOMContentLoaded', function () {
+  let currentBrowser = getBrowser();
+  let storeName = strings.storeName[currentBrowser];
+  let storeUrl = urls.storeDetailUrl[currentBrowser].replace('{EXTENSION_ID}', browserAPI.runtime.id);
+
+  if (DEBUG) {
+    console.log('Current Browser:', currentBrowser);
+    console.log('Store Name:', storeName);
+    console.log('Store URL:', storeUrl);
+  }
+
+  // Replace placeholders in the HTML content
+  document.body.innerHTML = document.body.innerHTML.replace(/{STORE_NAME}/g, storeName).replace(/{STORE_URL}/g, storeUrl);
 });

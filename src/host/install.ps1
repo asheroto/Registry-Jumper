@@ -86,6 +86,7 @@ Write-Output ""
 Write-Output "Installation complete"
 Write-Output "You can now click the Verify button in the extension options to check if the host is registered correctly."
 Write-Output "If it works, you're good to go!"
+Write-Output ""
 
 # ============================================================================ #
 # Wait for 10 seconds or until a key is pressed before closing
