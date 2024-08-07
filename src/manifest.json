@@ -6,8 +6,11 @@
   "description": "Opens the selected registry key in regedit using Sysinternals RegJump.",
   "homepage_url": "https://github.com/asheroto/Registry-Jumper",
   "icons": {
-    "16": "img/regedit-icon.png",
-    "256": "img/regedit-logo.png"
+    "16": "img/icon/16.png",
+    "48": "img/icon/48.png",
+    "64": "img/icon/64.png",
+    "128": "img/icon/128.png",
+    "256": "img/icon/256.png"
   },
   "manifest_version": 3,
   "name": "Registry Jumper",
@@ -18,20 +21,6 @@
     "activeTab",
     "tabs",
     "nativeMessaging"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "run_at": "document_end"
-    }
   ],
   "update_url": "https://clients2.google.com/service/update2/crx",
   "version": "2.0.0"

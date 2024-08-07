@@ -34,8 +34,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
 chrome.contextMenus.create({
   id: "openInRegJump",
   title: "Open %s in Registry Editor",
-  contexts: ["selection"],
-  visible: false
+  contexts: ["selection"]
 }, function () {
   if (chrome.runtime.lastError) {
     if (DEBUG) console.error("Error creating context menu: " + chrome.runtime.lastError.message);
@@ -49,6 +48,13 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     if (DEBUG) console.log("Context menu clicked with text: " + info.selectionText);
     openInRegJump(info.selectionText);
   }
+});
+
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  chrome.scripting.executeScript({
+    target: { tabId: activeInfo.tabId },
+    files: ['content.js']
+  });
 });
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
