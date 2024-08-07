@@ -1,7 +1,10 @@
 // Disable for production
 const DEBUG = false;
 
-// Function to send selected text to the native messaging host
+// Valid registry prefixes
+var validPrefixes = ["HKEY_CURRENT_USER", "HKEY_LOCAL_MACHINE", "HKEY_CLASSES_ROOT", "HKEY_USERS", "HKEY_CURRENT_CONFIG"];
+
+// Function to open selected text in RegJump
 var openInRegJump = function (selectedText) {
   chrome.runtime.sendNativeMessage('com.asheroto.regjump', { text: selectedText.trim() }, function (response) {
     if (chrome.runtime.lastError) {
@@ -22,7 +25,7 @@ var openInRegJump = function (selectedText) {
   });
 };
 
-// Listener for when the extension is installed or updated
+// Listener for extension installation or update
 chrome.runtime.onInstalled.addListener(function (details) {
   if (DEBUG) console.log("Extension installed or updated");
   if (details.reason === "install") {
@@ -31,7 +34,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
   }
 });
 
-// Create the context menu item
+// Create context menu
 chrome.contextMenus.create({
   id: "openInRegJump",
   title: "Open %s in Registry Editor",
@@ -45,7 +48,7 @@ chrome.contextMenus.create({
   }
 });
 
-// Listener for when the context menu item is clicked
+// Listener for context menu click
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId === "openInRegJump") {
     if (DEBUG) console.log("Context menu clicked with text: " + info.selectionText);
@@ -53,7 +56,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
   }
 });
 
-// Listener for messages from the content script
+// Listener for selection change messages
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (DEBUG) console.log("Message received from content script: ", message);
   if (message.type === 'selectionChanged') {
