@@ -1,8 +1,7 @@
 // Disable for production
 const DEBUG = false;
 
-var validPrefixes = ["HKEY_CURRENT_USER", "HKEY_LOCAL_MACHINE", "HKEY_CLASSES_ROOT", "HKEY_USERS", "HKEY_CURRENT_CONFIG"];
-
+// Function to send selected text to the native messaging host
 var openInRegJump = function (selectedText) {
   chrome.runtime.sendNativeMessage('com.asheroto.regjump', { text: selectedText.trim() }, function (response) {
     if (chrome.runtime.lastError) {
@@ -21,20 +20,23 @@ var openInRegJump = function (selectedText) {
       }
     }
   });
-}
+};
 
+// Listener for when the extension is installed or updated
 chrome.runtime.onInstalled.addListener(function (details) {
   if (DEBUG) console.log("Extension installed or updated");
-  if (details.reason == "install") {
+  if (details.reason === "install") {
     var optionsUrl = chrome.runtime.getURL('options.html');
     chrome.tabs.create({ url: optionsUrl });
   }
 });
 
+// Create the context menu item
 chrome.contextMenus.create({
   id: "openInRegJump",
   title: "Open %s in Registry Editor",
-  contexts: ["selection"]
+  contexts: ["selection"],
+  visible: false
 }, function () {
   if (chrome.runtime.lastError) {
     if (DEBUG) console.error("Error creating context menu: " + chrome.runtime.lastError.message);
@@ -43,6 +45,7 @@ chrome.contextMenus.create({
   }
 });
 
+// Listener for when the context menu item is clicked
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId === "openInRegJump") {
     if (DEBUG) console.log("Context menu clicked with text: " + info.selectionText);
@@ -50,13 +53,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
   }
 });
 
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-  chrome.scripting.executeScript({
-    target: { tabId: activeInfo.tabId },
-    files: ['content.js']
-  });
-});
-
+// Listener for messages from the content script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (DEBUG) console.log("Message received from content script: ", message);
   if (message.type === 'selectionChanged') {
