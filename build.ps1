@@ -1,15 +1,17 @@
 # Define vars
 $googleUpdateUrl = "https://clients2.google.com/service/update2/crx"
 $edgeUpdateUrl = "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+$correctExtensionID = "oeclndhlgfilojjhmciifnjopekeieei"
 
 # Define the source folder path and output zip file names
 $srcFolderPath = "src"
-$manifestPath = Join-Path $srcFolderPath "manifest.json"
+$manifestPath = [System.IO.Path]::Combine($srcFolderPath, "manifest.json")
+$nativeHostPath = [System.IO.Path]::Combine($srcFolderPath, "host", "nativehost.json")
 $destFolderPath = "dist"
-$chromeFolder = Join-Path $destFolderPath "chrome"
-$edgeFolder = Join-Path $destFolderPath "edge"
-$chromeZip = Join-Path $destFolderPath "chrome.zip"
-$edgeZip = Join-Path $destFolderPath "edge.zip"
+$chromeFolder = [System.IO.Path]::Combine($destFolderPath, "chrome")
+$edgeFolder = [System.IO.Path]::Combine($destFolderPath, "edge")
+$chromeZip = [System.IO.Path]::Combine($destFolderPath, "chrome.zip")
+$edgeZip = [System.IO.Path]::Combine($destFolderPath, "edge.zip")
 
 # Function to create folder if it doesn't exist and clear it if it does
 function Ensure-Folder {
@@ -44,6 +46,12 @@ Write-Output "Creating necessary folders and clearing existing content..."
 Ensure-Folder -folderPath $destFolderPath
 Ensure-Folder -folderPath $chromeFolder
 Ensure-Folder -folderPath $edgeFolder
+
+# Update nativehost.json with the correct extension ID
+Write-Output "Updating extension ID in nativehost.json..."
+$nativeHost = Get-Content -Raw -Path $nativeHostPath | ConvertFrom-Json
+$nativeHost.allowed_origins = @("chrome-extension://$correctExtensionID/")
+$nativeHost | ConvertTo-Json -Depth 4 | Set-Content -Path $nativeHostPath
 
 # Read the original manifest
 $manifest = Get-Content -Raw -Path $manifestPath | ConvertFrom-Json

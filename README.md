@@ -25,35 +25,52 @@ Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selecte
 - **Automated Setup**: An easy installation script to download and set up RegJump and the Chrome native messaging host.
 - **Enhanced Debugging**: Improved debugging to help diagnose issues.
 
-## Supported prefixes
+## Supported Prefixes
+
 - HKCU / HKEY_CURRENT_USER
 - HKLM / HKEY_LOCAL_MACHINE
 - HKCR / HKEY_CLASSES_ROOT
 - HKU / HKEY_USERS
 - HKCC / HKEY_CURRENT_CONFIG
 
-## Installation
+## Getting Started
+
+### Installation
 
 Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store Link](https://chromewebstore.google.com/detail/registry-jumper/oeclndhlgfilojjhmciifnjopekeieei)
 
-## Setup
+### Setup
 
 - Open the `Extensions` menu
 - Click the `Registry Jumper` menu
 - Click on `Options`
 - Complete the setup by following the instructions
 
-## Usage
+### Usage
 
 1. **Select a Registry Key**: On a new tab, select a registry key text (e.g., `HKEY_LOCAL_MACHINE\Software\...`).
 2. **Right-Click and Open**: Right-click the selected text and choose "Open in Registry Editor" from the context menu.
 3. **Refresh Tab**: If you already have a tab pulled up, you will need to refresh the tab in order for the extension to work.
 
-## Open Source
+## Troubleshooting
+
+If you encounter issues with the extension, try running the installer again. While functionality typically remains stable across versions, some changes can cause connection issues. Running the install script should resolve these problems.
+
+## How it Works
+
+When you run the `install.ps1` script, it downloads `regjump.exe` from Sysinternals into the `<extension>\<version>\host\regjump` folder. The script then copies the `host` folder to the root extension directory to ensure that functionality remains intact even if the extension version changes.
+
+Next, the installer sets up Chrome Native Messaging to enable communication between the extension and RegJump, allowing registry information to be passed seamlessly.
+
+When a valid registry prefix is detected, the extension's context menu is shown, and the selected information is passed to RegJump through Chrome Native Messaging, ensuring relevant functionality.
+
+## Community & Contributions
+
+### Open Source
 
 This extension is fully open-source to ensure both transparency and security. You can view and even contribute to the source code.
 
-## Contributing Guidelines
+### Contributing Guidelines
 
 We value community contributions and encourage you to get involved. For issues, feature requests, or code contributions, please visit our GitHub repository.
 
