@@ -13,15 +13,9 @@ document.addEventListener('selectionchange', function () {
 
     // Check if the selected text matches any valid registry prefix
     var isValid = validPrefixes.some(prefix => selectedText.startsWith(prefix));
-    if (isValid) {
-        try {
-            chrome.runtime.sendMessage({ type: 'selectionChanged', selectionText: selectedText }, function (response) {
-                if (chrome.runtime.lastError) {
-                    console.error("Error: " + chrome.runtime.lastError.message);
-                }
-            });
-        } catch (error) {
-            console.error("Error sending message: ", error);
+    chrome.runtime.sendMessage({ type: 'selectionChanged', selectionText: selectedText, isValid: isValid }, function (response) {
+        if (chrome.runtime.lastError) {
+            console.error("Error: " + chrome.runtime.lastError.message);
         }
-    }
+    });
 });

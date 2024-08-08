@@ -1,5 +1,5 @@
 // Disable for production
-const DEBUG = false;
+const DEBUG = true;
 
 // Valid registry prefixes
 var validPrefixes = [
@@ -66,10 +66,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (DEBUG) console.log("Message received from content script: ", message);
   if (message.type === 'selectionChanged') {
-    var trimmedText = message.selectionText.trim();
-    var isValid = validPrefixes.some(prefix => trimmedText.startsWith(prefix));
     chrome.contextMenus.update("openInRegJump", {
-      visible: isValid
+      visible: message.isValid
     }, function () {
       if (chrome.runtime.lastError) {
         if (DEBUG) console.error("Error updating context menu: " + chrome.runtime.lastError.message);

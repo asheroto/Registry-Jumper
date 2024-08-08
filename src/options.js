@@ -6,8 +6,14 @@ const DEBUG = false;
 // ========================================================================== //
 
 function verify() {
+  // Disable the verify button
+  var verifyButton = document.getElementById('verify');
+  verifyButton.disabled = true;
+
   var status = document.getElementById('status');
   status.textContent = '';
+  status.setAttribute('class', 'hidden');
+
   chrome.runtime.sendNativeMessage('com.asheroto.regjump', { "status": "validate" }, function (response) {
     if (response == undefined) {
       status.setAttribute('class', 'alert alert-danger');
@@ -19,6 +25,9 @@ function verify() {
       status.setAttribute('class', 'alert alert-info');
       status.innerHTML = 'RegJump communication established! You can now begin using Registry Jumper.<br><br>On a new tab, select a registry key, right-click, and select "Open in Registry Editor". If you already have a tab pulled up you will need to refresh the tab in order for the extension to work.';
     }
+
+    // Enable the verify button
+    verifyButton.disabled = false;
   });
 }
 
