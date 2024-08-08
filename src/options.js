@@ -1,3 +1,6 @@
+// Disable for production
+const DEBUG = false;
+
 // ========================================================================== //
 // Functions
 // ========================================================================== //
@@ -22,19 +25,6 @@ function verify() {
 function setExtensionId() {
   var manifest = chrome.runtime.getManifest();
   var version = manifest.version;
-  var isUnpacked = false;
-
-  // Check if the extension is unpacked by trying to access the URL of the background script
-  try {
-    var bgUrl = chrome.runtime.getURL(manifest.background.scripts[0]);
-    isUnpacked = bgUrl.startsWith('chrome-extension://');
-  } catch (e) {
-    console.log("Unable to determine if the extension is unpacked.");
-  }
-
-  if (isUnpacked) {
-    version += '_0'; // Append _0 for unpacked extensions
-  }
 
   var elements = document.getElementsByClassName('extension_id');
   for (var i = 0; i < elements.length; i++) {
@@ -80,7 +70,57 @@ document.querySelectorAll('.copyable').forEach(function (element) {
 });
 
 // ========================================================================== //
-// Replace placeholders in the page that is presented to the user upon clicking the extension icon
+// Strings
+// ========================================================================== //
+
+const strings = {
+  filePrefix: 'Registry Jumper',
+  storeName: {
+    Chrome: 'the Chrome Web Store',
+    Edge: 'Microsoft Edge Add-ons'
+  },
+  browserName: {
+    Chrome: 'Chrome',
+    Edge: 'Edge'
+  }
+};
+
+// ========================================================================== //
+// URLs
+// ========================================================================== //
+
+const urls = {
+  storeUrl: {
+    Chrome: 'chrome.google.com',
+    Edge: 'microsoftedge.microsoft.com'
+  },
+  storeDetailUrl: {
+    Chrome: 'https://chrome.google.com/webstore/detail/{EXTENSION_ID}',
+    Edge: 'https://microsoftedge.microsoft.com/addons/detail/{EXTENSION_ID}'
+  }
+};
+
+// ========================================================================== //
+// Define browserAPI to handle both Chrome and other browsers (like Firefox)
+// ========================================================================== //
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
+// ========================================================================== //
+// Determine the browser based on the user agent
+// ========================================================================== //
+const getBrowser = function () {
+  const userAgent = navigator.userAgent;
+  if (/Chrome/.test(userAgent) && !/Edg\//.test(userAgent)) {
+    return 'Chrome';
+  } else if (/Edg\//.test(userAgent)) {
+    return 'Edge';
+  } else {
+    return 'Chrome';  // Default to Chrome
+  }
+};
+
+// ========================================================================== //
+// Replace placeholders
 // ========================================================================== //
 document.addEventListener('DOMContentLoaded', function () {
   let currentBrowser = getBrowser();
@@ -93,6 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Store URL:', storeUrl);
   }
 
-  // Replace placeholders in the HTML content
-  document.body.innerHTML = document.body.innerHTML.replace(/{STORE_NAME}/g, storeName).replace(/{STORE_URL}/g, storeUrl);
+  // Update the href and text content of the store link
+  let storeUrlElement = document.getElementById('store_url');
+  storeUrlElement.href = storeUrl;
+  storeUrlElement.textContent = `Rate this extension on ${storeName}`;
 });

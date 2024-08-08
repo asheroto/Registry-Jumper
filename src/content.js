@@ -1,5 +1,11 @@
 // Valid registry prefixes
-var validPrefixes = ["HKEY_CURRENT_USER", "HKEY_LOCAL_MACHINE", "HKEY_CLASSES_ROOT", "HKEY_USERS", "HKEY_CURRENT_CONFIG"];
+var validPrefixes = [
+    "HKCU", "HKEY_CURRENT_USER",
+    "HKLM", "HKEY_LOCAL_MACHINE",
+    "HKCR", "HKEY_CLASSES_ROOT",
+    "HKU", "HKEY_USERS",
+    "HKCC", "HKEY_CURRENT_CONFIG"
+];
 
 // On selection change, check if the selected text is a valid registry prefix
 document.addEventListener('selectionchange', function () {
