@@ -14,5 +14,6 @@ Function Wait-ForKeyOrTimeout {
 
         Start-Sleep -Seconds 1
     }
+
     Write-Host "`rPress any key to close... (Closing in 0 seconds)                     " # Clear the last countdown
 }

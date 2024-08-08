@@ -16,6 +16,7 @@ Remove-Item -Path $RegistryPath -Force -ErrorAction SilentlyContinue
 # ============================================================================ #
 
 Write-Output "Registry entry deleted successfully."
+Write-Output ""
 
 # ============================================================================ #
 # Wait for 10 seconds or until a key is pressed before closing
