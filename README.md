@@ -71,7 +71,7 @@ If you found this extension helpful and want to show your appreciation, consider
 
 ## Rate and Feedback
 
-If you enjoyed using this extension, please take a moment to [rate it on the Chrome Web Store](https://chrome.google.com/webstore/detail/registry-jumper/abc123).
+If you enjoyed using this extension, please take a moment to [rate it on the Chrome Web Store](https://chromewebstore.google.com/detail/registry-jumper/oeclndhlgfilojjhmciifnjopekeieei).
 
 For feature requests and bug reports, visit the [Issues](https://github.com/asheroto/Registry-Jumper/issues) tab.
 
