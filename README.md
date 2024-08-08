@@ -34,7 +34,7 @@ Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selecte
 
 ## Installation
 
-Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store Link](https://chrome.google.com/webstore/detail/registry-jumper/placeholder-link)
+Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store Link](https://chromewebstore.google.com/detail/registry-jumper/oeclndhlgfilojjhmciifnjopekeieei)
 
 ## Setup
 
