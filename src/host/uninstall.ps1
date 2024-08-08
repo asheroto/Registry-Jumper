@@ -8,7 +8,7 @@
 # Unregister host
 # ============================================================================ #
 
-$RegistryPath = "HKCU:\Software\Google\Chrome\NativeMessagingHosts\com.asheroto.chrome.regjump"
+$RegistryPath = "HKCU:\Software\Google\Chrome\NativeMessagingHosts\com.asheroto.regjump"
 Remove-Item -Path $RegistryPath -Force -ErrorAction SilentlyContinue
 
 # ============================================================================ #
