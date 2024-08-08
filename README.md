@@ -25,6 +25,13 @@ Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selecte
 - **Automated Setup**: An easy installation script to download and set up RegJump and the Chrome native messaging host.
 - **Enhanced Debugging**: Improved debugging to help diagnose issues.
 
+## Supported prefixes
+- HKCU / HKEY_CURRENT_USER
+- HKLM / HKEY_LOCAL_MACHINE
+- HKCR / HKEY_CLASSES_ROOT
+- HKU / HKEY_USERS
+- HKCC / HKEY_CURRENT_CONFIG
+
 ## Installation
 
 Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store Link](https://chrome.google.com/webstore/detail/registry-jumper/placeholder-link)
