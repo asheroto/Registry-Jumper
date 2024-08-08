@@ -18,6 +18,7 @@ function Respond {
     }
 }
 
+# Adjust path to point to the regjump.exe in the host directory located at the extension's root
 $regJump = [System.IO.Path]::Combine($PSScriptRoot, "regjump", "regjump.exe")
 
 try {
@@ -37,21 +38,13 @@ try {
     }
 
     if (-not (Test-Path $regJump)) {
+        # Show a message box prompting the user to open the Options page and run the install script again
         $message = @"
-Unable to locate 'regjump.exe' in '$([System.IO.Path]::GetDirectoryName($regJump))'
+regjump.exe could not be found in the expected location: $regJump
 
-Please run install.ps1 in this folder: '$PSScriptRoot'
-
-Would you like to run the install.ps1 script now? This will download 'regjump.exe' from the Sysinternals website and register the native messaging host.
+Please open the extension's Options page and run the install script again to correct the issue.
 "@
-        $result = [System.Windows.Forms.MessageBox]::Show($message, "Registry Jumper", [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
-
-        if ($result -eq [System.Windows.Forms.DialogResult]::Yes) {
-            Write-Host "User chose to run install.ps1"
-            Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -NoLogo -NoProfile -File `"$PSScriptRoot\install.ps1`""
-        } else {
-            Write-Host "User chose not to run install.ps1"
-        }
+        [System.Windows.Forms.MessageBox]::Show($message, "Registry Jumper", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning)
         return
     }
 

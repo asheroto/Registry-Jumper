@@ -1,5 +1,5 @@
 // Disable for production
-const DEBUG = true;
+const DEBUG = false;
 
 // Valid registry prefixes
 var validPrefixes = [
