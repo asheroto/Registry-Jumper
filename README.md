@@ -56,6 +56,8 @@ Users can install Registry Jumper from the Chrome Web Store: [Chrome Web Store L
 
 If you encounter issues with the extension, try running the installer again. While functionality typically remains stable across versions, some changes can cause connection issues. Running the install script should resolve these problems.
 
+If you’re still having issues and need help, please open an [issue](https://github.com/asheroto/Registry-Jumper/issues).
+
 ## How it Works
 
 When you run the `install.ps1` script, it downloads `regjump.exe` from Sysinternals into the `<extension>\<version>\host\regjump` folder. The script then copies the `host` folder to the root extension directory to ensure that functionality remains intact even if the extension version changes.

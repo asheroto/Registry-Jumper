@@ -1,6 +1,6 @@
-# Contributing to Extension Exporter
+# Contributing to Registry Jumper
 
-Thank you for considering contributing to Extension Exporter! Your contributions will help improve the extension and benefit its user community.
+Thank you for considering contributing to Registry Jumper! Your contributions will help improve the extension and benefit its user community.
 
 ## Code of Conduct
 
@@ -22,7 +22,7 @@ Whether you're looking to submit a bug report, propose a feature, or contribute 
 
 ### Contributing Code
 
-We highly recommend using Visual Studio Code for development. You can download it [here](https://code.visualstudio.com/). It supports a wide variety of languages and extensions, and is available for Windows, macOS, and Linux. It also supports Git out of the box, making it easy to contribute to Extension Exporter.
+We highly recommend using Visual Studio Code for development. You can download it [here](https://code.visualstudio.com/). It supports a wide variety of languages and extensions, and is available for Windows, macOS, and Linux. It also supports Git out of the box, making it easy to contribute to Registry Jumper.
 
 1. Fork the repository on GitHub.
 2. Clone your fork locally (`git clone https://github.com/your-username/Registry-Jumper.git`).
@@ -44,6 +44,6 @@ After submitting a Pull Request, maintainers will review your contribution. You 
 
 ## License
 
-By contributing to Extension Exporter, you agree to license your contributions under the MIT License.
+By contributing to Registry Jumper, you agree to license your contributions under the MIT License.
 
 Thank you for your contributions!
