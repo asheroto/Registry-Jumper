@@ -74,6 +74,23 @@
     .links p:not(:last-child) {
       margin-right: 10px;
     }
+
+    .accordion-button.collapsed {
+      background-color: #dfecff;
+      color: #000;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .links .icon {
+      width: 16px;
+      margin-right: 5px;
+      margin-top: -1px;
+    }
   </style>
 </head>
 
@@ -87,7 +104,7 @@
     <h4>How to configure (60 second setup):</h4>
     <p>
       To complete the setup, run the <code>install.cmd</code> script in the extension's folder. This will download
-      <code>regjump.exe</code> to <code>%LOCALAPPDATA%\Registry Jumper</code> so that the extension can communicate with
+      <code>regjump.exe</code> to <code class="copyable">%LOCALAPPDATA%\Registry Jumper</code> so that the extension can communicate with
       it.
     </p>
     <p>
@@ -99,29 +116,29 @@
       The <code>install.cmd</code> script is located in the following path:
     </p>
     <ul>
-      <li><strong>Chrome (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      <li><strong>Chrome</strong> <code class="copyable">%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
       </li>
-      <li><strong>Edge (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      <li><strong>Edge</strong> <code class="copyable">%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
       </li>
-      <li><strong>Brave (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      <li><strong>Brave</strong> <code class="copyable">%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
       </li>
-      <li><strong>Opera (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      <li><strong>Opera</strong> <code class="copyable">%LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
       </li>
     </ul>
     <div class="accordion" id="faqCannotFindPath">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Windows says it cannot find the path
+        <h2 class="accordion-header" id="headingCannotFindPath">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCannotFindPath" aria-expanded="false" aria-controls="collapseCannotFindPath">
+            What if Windows says it cannot find the path?
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqCannotFindPath">
+        <div id="collapseCannotFindPath" class="accordion-collapse collapse" aria-labelledby="headingCannotFindPath" data-bs-parent="#faqCannotFindPath">
           <div class="accordion-body">
             If the path can't be found, you may be using a non-default profile. To find your profile path, open <code class="copyable">chrome://version</code> (this works for Edge, Brave, and others) and copy the <code>Profile Path</code> by selecting it and
             pressing <strong>Ctrl+C</strong>.
             Next, press <strong>Win+R</strong> to open the Run dialog, paste the profile path, then append it with <code class="copyable">\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>, and press
             <strong>Enter</strong>.
-            That should run the install script, but if it doesn't, find the extension path in the <code>Extensions</code> folder and append it with <code>host\install.cmd</code>.
+            That should run the install script, but if it doesn't, find the <code>Extensions</code> folder, open the version number folder, and append it with <code>host\install.cmd</code>.
           </div>
         </div>
       </div>
@@ -231,14 +248,10 @@
   <div class="thanks">
     <h4>Thank you!</h4>
     <p>Thanks for using Registry Jumper!</p>
-    <p>If you found this extension helpful and would like to show your appreciation, please consider making a small
-      donation to the developer. Your support is invaluable and helps keep the coffee flowing, allowing me to continue
-      creating cool projects like
-      this. This project is not backed by any corporation and relies entirely on my personal time and effort. While I
-      don't receive payment for this work, any donation is greatly appreciated!</p>
+    <p>If you found this extension helpful and would like to show your appreciation, please consider making a small donation to the developer. Your support is invaluable and helps keep the coffee flowing, allowing me to continue creating cool projects like
+      this. This project is not backed by any corporation and relies entirely on my personal time and effort. While I don't receive payment for this work, any donation is greatly appreciated!</p>
+    <p>If you don't want to support the developer at this time, that's okay too! Enjoy the extension and have a fantastic day! 😊</p>
 
-    <p>If you don't want to support the developer at this time, that's okay too! Enjoy the extension and have a
-      fantastic day! 😊</p>
     <div class="links">
       <div class="button">
         <!-- Buy Me a Coffee button -->
@@ -246,13 +259,15 @@
           <img src="img/bmac.svg" alt="Buy Me a Coffee">
         </a>
       </div>
-      <p><a href="#" id="store_url" target="_blank">⭐ Rate this extension</a></p>
-      <p><a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">🐛 Report bugs or request a new
-          feature</a></p>
-      <p><a href="https://github.com/asheroto/Registry-Jumper" target="_blank">🐙 GitHub repository</a></p>
+      <p><a href="#" id="store_url" target="_blank">
+          <img src="libs/font-awesome/star.svg" alt="Rate this extension" class="icon icon-star"> Rate this extension</a></p>
+      <p><a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">
+          <img src="libs/font-awesome/bug.svg" alt="Report bugs or request a new feature" class="icon icon-bug"> Report bugs or request a new feature</a></p>
+      <p><a href="https://github.com/asheroto/Registry-Jumper" target="_blank">
+          <img src="libs/font-awesome/github.svg" alt="GitHub repository" class="icon icon-github"> GitHub repository</a></p>
     </div>
-  </div>
 
+  </div>
   <script src="libs/bootstrap/js/bootstrap.min.js"></script>
   <script src="options.js"></script>
 </body>

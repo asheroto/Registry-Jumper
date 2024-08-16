@@ -9,8 +9,6 @@ $srcFolderPath = "src"
 $manifestPath = [System.IO.Path]::Combine($srcFolderPath, "manifest.json")
 $nativeHostPath = [System.IO.Path]::Combine($srcFolderPath, "host", "nativehost.json")
 $destFolderPath = "dist"
-$chromeFolder = [System.IO.Path]::Combine($destFolderPath, "chrome")
-$edgeFolder = [System.IO.Path]::Combine($destFolderPath, "edge")
 $chromeZip = [System.IO.Path]::Combine($destFolderPath, "chrome.zip")
 $edgeZip = [System.IO.Path]::Combine($destFolderPath, "edge.zip")
 
@@ -29,24 +27,22 @@ function Ensure-Folder {
     }
 }
 
-# Function to create a zip file
+# Function to create a zip file with contents directly at the root
 function Create-ZipFile {
     param (
         [string]$sourceFolder,
         [string]$zipFileName
     )
 
-    # Create the zip file
-    Compress-Archive -Path $sourceFolder -DestinationPath $zipFileName -Force
+    # Compress the contents of the source folder directly into the zip file
+    Compress-Archive -Path (Join-Path $sourceFolder '*') -DestinationPath $zipFileName -Force
 
     Write-Output "Zip file created: $zipFileName"
 }
 
-# Ensure dist folder and its subfolders exist and are empty
+# Ensure dist folder exists and is empty
 Write-Output "Creating necessary folders and clearing existing content..."
 Ensure-Folder -folderPath $destFolderPath
-Ensure-Folder -folderPath $chromeFolder
-Ensure-Folder -folderPath $edgeFolder
 
 # Update nativehost.json with the correct extension ID
 Write-Output "Updating extension ID in nativehost.json..."
@@ -61,8 +57,7 @@ $manifest = Get-Content -Raw -Path $manifestPath | ConvertFrom-Json
 function Update-ManifestAndZip {
     param (
         [string]$updateUrl,
-        [string]$zipFileName,
-        [string]$destFolder
+        [string]$zipFileName
     )
 
     # Update the update_url in the manifest
@@ -71,26 +66,19 @@ function Update-ManifestAndZip {
     # Write the updated manifest back to the file, prettified
     $manifest | ConvertTo-Json -Depth 4 | Set-Content -Path $manifestPath
 
-    # Copy files to the destination folder
-    Copy-Item -Path (Join-Path $srcFolderPath '*') -Destination $destFolder -Recurse -Force
-
-    # Create the zip file
-    Create-ZipFile -sourceFolder $destFolder -zipFileName $zipFileName
+    # Create the zip file directly from the source folder
+    Create-ZipFile -sourceFolder $srcFolderPath -zipFileName $zipFileName
 }
 
-# Update for Chrome
-Update-ManifestAndZip -updateUrl $googleUpdateUrl -zipFileName $chromeZip -destFolder $chromeFolder
+# Update and zip for Chrome
+Update-ManifestAndZip -updateUrl $googleUpdateUrl -zipFileName $chromeZip
 
-# Update for Edge
-Update-ManifestAndZip -updateUrl $edgeUpdateUrl -zipFileName $edgeZip -destFolder $edgeFolder
+# Update and zip for Edge
+Update-ManifestAndZip -updateUrl $edgeUpdateUrl -zipFileName $edgeZip
 
 # Restore the original manifest
 $manifest.update_url = $googleUpdateUrl
 $manifest | ConvertTo-Json -Depth 4 | Set-Content -Path $manifestPath
-
-# Delete the destination folders
-Remove-Item -Path $chromeFolder -Recurse -Force
-Remove-Item -Path $edgeFolder -Recurse -Force
 
 Write-Output "Manifest restored to original update URL."
 Write-Output ""

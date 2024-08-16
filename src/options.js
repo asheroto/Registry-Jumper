@@ -23,7 +23,7 @@ function verify() {
       status.innerHTML = 'Unable to communicate with RegJump. Please make sure you follow the installation instructions on the Options page.';
     } else if (response.message == 'ok') {
       status.setAttribute('class', 'alert alert-info');
-      status.innerHTML = 'RegJump communication established! You can now begin using Registry Jumper.<br><br>On a new tab, select a registry key, right-click, and select "Open in Registry Editor". If you already have a tab pulled up you will need to refresh the tab in order for the extension to work.';
+      status.innerHTML = 'RegJump communication established! You can now start using Registry Jumper.<br><br>To use the extension, open a new tab, then select a registry key, right-click, and choose <code>Open [key] in Registry Editor</code>. If a tab is already open, please refresh it to ensure the extension functions correctly.';
     }
 
     // Enable the verify button
