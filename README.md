@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/315e0dfc-f299-481c-b98e-46bec33baea0
 Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selected registry keys directly in Regedit using [Sysinternals RegJump](https://learn.microsoft.com/en-us/sysinternals/downloads/regjump). This tool is designed to streamline the process of navigating to specific registry keys by providing a context menu option in the browser.
 
 > [!NOTE]
-> This project is forked from [Chrome Registry Jumper](https://github.com/hmemcpy/ChromeRegJump). The original project was archived in March 2024 and was removed from the Chrome Web Store. Several improvements have been made from the original.
+> This project is based on [Chrome Registry Jumper](https://github.com/hmemcpy/ChromeRegJump). The original project was archived in March 2024 and was removed from the Chrome Web Store. The code has undergone significant enhancements compared to the original version.
 
 ## Features
 
@@ -36,7 +36,7 @@ Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selecte
 
 ### Installation
 
-Users can install Registry Jumper from the [Chrome Web Store](https://chromewebstore.google.com/detail/registry-jumper/oeclndhlgfilojjhmciifnjopekeieei) or by manually installing the CRX file from releases. We recommend using the Chrome Web Store link because it will automatically update the extension.
+Users can install Registry Jumper from the [Chrome Web Store](https://chromewebstore.google.com/detail/registry-jumper/oeclndhlgfilojjhmciifnjopekeieei), the [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/registry-jumper/mhaojmcnomblooljdnembgmajlmoecin), or by manually installing the CRX file from releases. We recommend using the Chrome Web Store or Edge Add-ons link because it will automatically update the extension.
 
 ### Setup
 
