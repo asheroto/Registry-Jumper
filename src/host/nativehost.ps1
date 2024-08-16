@@ -1,5 +1,6 @@
 ﻿Add-Type -AssemblyName System.Windows.Forms
 
+# Function to send a binary message to the host
 function Respond {
     param (
         [Parameter(Mandatory = $true)]
@@ -24,14 +25,17 @@ $regJump = [System.IO.Path]::Combine($localAppData, "Registry Jumper", "regjump"
 Write-Debug "RegJump Path: $regJump"
 
 try {
+    # Read the message from the host
     $reader = [System.IO.BinaryReader]::new([System.Console]::OpenStandardInput())
     $len = $reader.ReadInt32()
     $buf = $reader.ReadBytes($len)
     $msg = [System.Text.Encoding]::UTF8.GetString($buf)
     $obj = $msg | ConvertFrom-Json
 
+    # Validate the regjump.exe path
     if ($obj.Status -eq "validate") {
         if (-not (Test-Path $regJump)) {
+            # Send a message to the host to open the Options page and run the install script again
             Respond @{message = "regjump"; regJumpPath = [System.IO.Path]::GetDirectoryName($regJump) }
             return
         }
@@ -54,6 +58,7 @@ Please open the extension's Options page and run the install script again to cor
     $si.Arguments = $obj.Text
     $si.Verb = "runas"
 
+    # Start the regjump.exe process
     [System.Diagnostics.Process]::Start($si)
 } finally {
     $reader.Dispose()

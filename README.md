@@ -10,6 +10,9 @@ https://github.com/user-attachments/assets/315e0dfc-f299-481c-b98e-46bec33baea0
 
 # Registry Jumper
 
+> [!NOTE]
+> This is a newly updated plugin that has recently undergone several big changes. An update has been submitted to the Chrome and Edge stores and is currently pending approval. Store links may not function until the update is approved.
+
 ## Overview
 
 Registry Jumper is a Chrome/Edge/Brave extension that allows you to open selected registry keys directly in Regedit using [Sysinternals RegJump](https://learn.microsoft.com/en-us/sysinternals/downloads/regjump). This tool is designed to streamline the process of navigating to specific registry keys by providing a context menu option in the browser.
@@ -59,11 +62,11 @@ If you’re still having issues and need help, please open an [issue](https://gi
 
 ## How it Works
 
-When you run the `install.ps1` script, it downloads `regjump.exe` from Sysinternals into the `<extension>\<version>\host\regjump` folder. The script then copies the `host` folder to the root extension directory to ensure that functionality remains intact even if the extension version changes.
+When you run the `install.ps1` script, it downloads `regjump.exe` from Sysinternals and places it in the `regjump` folder under `%LOCALAPPDATA%\Registry Jumper`. The script then copies the necessary files, including the `host` folder, to the `host` folder under `%LOCALAPPDATA%\Registry Jumper`. This setup ensures that the program remains in a consistent location and continues to function correctly, even if the extension version changes.
 
-Next, the installer sets up Chrome Native Messaging to enable communication between the extension and RegJump, allowing registry information to be passed seamlessly.
+Next, the installer configures [Chrome Native Messaging](https://developer.chrome.com/docs/extensions/mv3/nativeMessaging/) to enable seamless communication between the extension and RegJump. This allows registry information to be passed efficiently between the browser and RegJump.
 
-When a valid registry prefix is detected, the extension's context menu is shown, and the selected information is passed to RegJump through Chrome Native Messaging, ensuring relevant functionality.
+Whenever a valid registry prefix is detected, the extension's context menu becomes available. The selected registry information is then passed to RegJump via Chrome Native Messaging, ensuring that it opens the relevant registry key.
 
 ## Community & Contributions
 
