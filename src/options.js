@@ -82,7 +82,7 @@ const strings = {
   filePrefix: 'Registry Jumper',
   storeName: {
     Chrome: 'the Chrome Web Store',
-    Edge: 'Microsoft Edge Add-ons'
+    Edge: 'Edge Add-ons'
   },
   browserName: {
     Chrome: 'Chrome',
