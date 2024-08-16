@@ -1,10 +1,10 @@
 {
-    "name":  "com.asheroto.regjump",
-    "description":  "Registry Jumper Native Host",
-    "path":  "run-host.cmd",
-    "type":  "stdio",
-    "allowed_origins":  [
-                            "chrome-extension://oeclndhlgfilojjhmciifnjopekeieei/",
-                            "chrome-extension://mhaojmcnomblooljdnembgmajlmoecin/"
-                        ]
+    "name": "com.asheroto.regjump",
+    "description": "Registry Jumper Native Host",
+    "path": "run-host.cmd",
+    "type": "stdio",
+    "allowed_origins": [
+        "chrome-extension://oeclndhlgfilojjhmciifnjopekeieei/",
+        "chrome-extension://mhaojmcnomblooljdnembgmajlmoecin/"
+    ]
 }

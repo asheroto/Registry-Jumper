@@ -137,9 +137,4 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Store Name:', storeName);
     console.log('Store URL:', storeUrl);
   }
-
-  // Update the href and text content of the store link
-  let storeUrlElement = document.getElementById('store_url');
-  storeUrlElement.href = storeUrl;
-  storeUrlElement.textContent = `Rate this extension on ${storeName}`;
 });
