@@ -11,31 +11,35 @@ $ConfirmPreference = 'None' # Suppress confirmation prompts
 
 Function Download-RegJump {
     param (
-        [string]$DestinationPath
+        [string]$regJumpFolder
     )
 
     $url = "https://live.sysinternals.com/regjump.exe"
-    $regJumpFolder = Join-Path -Path $DestinationPath -ChildPath "regjump"
     $regJumpPath = Join-Path -Path $regJumpFolder -ChildPath "regjump.exe"
 
-    # Create the destination folder if it doesn't exist
-    if (-not (Test-Path -Path $regJumpFolder)) {
-        Write-Debug "Creating regjump folder"
-        New-Item -ItemType Directory -Path $regJumpFolder -Force | Out-Null
+    try {
+        # Create the destination folder if it doesn't exist
+        if (-not (Test-Path -Path $regJumpFolder)) {
+            Write-Debug "Creating regjump folder"
+            New-Item -ItemType Directory -Path $regJumpFolder -Force | Out-Null
+        }
+
+        # Check if the file exists and delete it
+        if (Test-Path -Path $regJumpPath) {
+            Write-Debug "Deleting existing regjump.exe"
+            Remove-Item -Path $regJumpPath -Force
+        }
+
+        # Download the file
+        Write-Debug "Downloading regjump.exe from $url to $regJumpPath"
+        Invoke-WebRequest -Uri $url -OutFile $regJumpPath
+
+        Write-Output "regjump.exe successfully downloaded."
+        Write-Debug "regjump.exe is located at: $regJumpFolder"
+    } catch {
+        Write-Error "Failed to download regjump.exe: $_"
+        exit 1
     }
-
-    # Check if the file exists and delete it
-    if (Test-Path -Path $regJumpPath) {
-        Write-Debug "Deleting existing regjump.exe"
-        Remove-Item -Path $regJumpPath -Force
-    }
-
-    # Download the file
-    Write-Debug "Downloading regjump.exe from $url to $regJumpPath"
-    Invoke-WebRequest -Uri $url -OutFile $regJumpPath
-
-    Write-Output "regjump.exe has been downloaded"
-    Write-Debug "regjump.exe location: $regJumpFolder"
 }
 
 Function Copy-HostFolder {
@@ -44,29 +48,23 @@ Function Copy-HostFolder {
         [string]$DestinationPath
     )
 
-    # Ensure the destination path exists
-    if (-not (Test-Path -Path $DestinationPath)) {
-        Write-Debug "Creating destination folder: $DestinationPath"
-        New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
+    try {
+        # Ensure the destination path exists
+        if (-not (Test-Path -Path $DestinationPath)) {
+            Write-Debug "Creating destination folder: $DestinationPath"
+            New-Item -ItemType Directory -Path $DestinationPath -Force | Out-Null
+        }
+
+        # Copy the contents of the host folder to the destination path
+        Write-Debug "Copying host folder contents from $SourcePath to $DestinationPath"
+        Copy-Item -Path (Join-Path $SourcePath "*") -Destination $DestinationPath -Recurse -Force
+
+        Write-Output "Host folder successfully configured."
+        Write-Debug "Host folder path: $DestinationPath"
+    } catch {
+        Write-Error "Failed to copy host folder: $_"
+        exit 1
     }
-
-    # Verify source path exists and contains files
-    if (-not (Test-Path -Path $SourcePath)) {
-        Write-Error "Source path $SourcePath does not exist. Cannot copy host folder."
-        return
-    }
-
-    $files = Get-ChildItem -Path $SourcePath
-    if ($files.Count -eq 0) {
-        Write-Error "Source path $SourcePath is empty. Nothing to copy."
-        return
-    }
-
-    # Copy the entire host folder
-    Write-Debug "Copying host folder from $SourcePath to $DestinationPath"
-    Copy-Item -Path $SourcePath\* -Destination $DestinationPath -Recurse -Force
-
-    Write-Output "Host folder has been copied to $DestinationPath"
 }
 
 Function Register-NativeMessagingHost {
@@ -75,10 +73,17 @@ Function Register-NativeMessagingHost {
         [string]$ManifestPath
     )
 
-    $RegistryPath = "HKCU:\Software\Google\Chrome\NativeMessagingHosts\$HostName"
+    try {
+        $RegistryPath = Join-Path "HKCU:\Software\Google\Chrome\NativeMessagingHosts" $HostName
 
-    New-Item -Path $RegistryPath -Force -ErrorAction SilentlyContinue | Out-Null
-    Set-ItemProperty -Path $RegistryPath -Name "(default)" -Value $ManifestPath -Force
+        New-Item -Path $RegistryPath -Force -ErrorAction SilentlyContinue | Out-Null
+        Set-ItemProperty -Path $RegistryPath -Name "(default)" -Value $ManifestPath -Force
+
+        Write-Output "Native messaging host registered successfully."
+    } catch {
+        Write-Error "Failed to register native messaging host: $_"
+        exit 1
+    }
 }
 
 # ============================================================================ #
@@ -88,14 +93,23 @@ Function Register-NativeMessagingHost {
 . "$PSScriptRoot\functions.ps1"
 
 # ============================================================================ #
+# Set up the paths
+# ============================================================================ #
+
+# Set the base destination path to %LOCALAPPDATA%\Registry Jumper
+$localAppData = $ENV:LOCALAPPDATA
+$baseDestinationPath = Join-Path -Path $localAppData -ChildPath "Registry Jumper"
+
+# Define paths for regjump and host folders
+$regJumpFolder = Join-Path -Path $baseDestinationPath -ChildPath "regjump"
+$hostFolder = Join-Path -Path $baseDestinationPath -ChildPath "host"
+
+# ============================================================================ #
 # RegJump
 # ============================================================================ #
 
-# Get the current directory
-$currentPath = Get-Location
-
 Write-Output "Downloading Sysinternals RegJump..."
-Download-RegJump -DestinationPath $currentPath.Path
+Download-RegJump -regJumpFolder $regJumpFolder
 Write-Output ""
 
 # ============================================================================ #
@@ -104,17 +118,8 @@ Write-Output ""
 
 Write-Output "Copying host folder..."
 
-# Correctly set the source path to the `host` folder in the script directory
-$SourceHostFolder = $PSScriptRoot
-$ExtensionRootFolder = (Get-Item -Path $PSScriptRoot).Parent.Parent.FullName
-$DestinationHostFolder = Join-Path -Path $ExtensionRootFolder -ChildPath "host"
-
-# Debug output for paths
-Write-Debug "Source Host Folder: $SourceHostFolder"
-Write-Debug "Destination Host Folder: $DestinationHostFolder"
-
-# Copy the host folder to the extension root directory
-Copy-HostFolder -SourcePath $SourceHostFolder -DestinationPath $DestinationHostFolder
+# Copy the contents of the host folder to the destination directory
+Copy-HostFolder -SourcePath $PSScriptRoot -DestinationPath $hostFolder
 Write-Output ""
 
 # ============================================================================ #
@@ -123,15 +128,13 @@ Write-Output ""
 
 Write-Output "Registering host..."
 
-$ManifestPath = Join-Path -Path $DestinationHostFolder -ChildPath "nativehost.json"
+$ManifestPath = Join-Path -Path $hostFolder -ChildPath "nativehost.json"
 
 # Debug output for troubleshooting
 Write-Debug "Manifest Path: $ManifestPath"
 
-# Register the native messaging host
+# Register the native messaging host with the correct path
 Register-NativeMessagingHost -HostName "com.asheroto.regjump" -ManifestPath $ManifestPath
-
-Write-Output "Native messaging host registered successfully."
 Write-Output ""
 
 # ============================================================================ #
@@ -139,7 +142,7 @@ Write-Output ""
 # ============================================================================ #
 
 Write-Output "Installation complete"
-Write-Output "You can now click the Verify button in the extension options to check if the host is registered correctly."
+Write-Output "You can now click the Verify button in the extension options to confirm that the host is registered correctly."
 Write-Output "If it works, you're good to go!"
 Write-Output ""
 

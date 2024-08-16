@@ -44,12 +44,8 @@ function setExtensionId() {
     elements[i].textContent = version;
   }
 
-  var author = document.getElementById('author');
-  author.textContent = manifest.author;
   var versionElem = document.getElementById('version');
   versionElem.textContent = "v" + version;
-  var homepage_url = document.getElementById('homepage_url');
-  homepage_url.href = manifest.homepage_url;
 }
 
 function copyToClipboard(text) {

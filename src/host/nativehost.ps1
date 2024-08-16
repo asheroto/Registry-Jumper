@@ -18,8 +18,10 @@ function Respond {
     }
 }
 
-# Adjust path to point to the regjump.exe in the host directory located at the extension's root
-$regJump = [System.IO.Path]::Combine($PSScriptRoot, "regjump", "regjump.exe")
+# Adjust path to point to the regjump.exe in the host directory located in %LOCALAPPDATA%\Registry Jumper
+$localAppData = $ENV:LOCALAPPDATA
+$regJump = [System.IO.Path]::Combine($localAppData, "Registry Jumper", "regjump", "regjump.exe")
+Write-Debug "RegJump Path: $regJump"
 
 try {
     $reader = [System.IO.BinaryReader]::new([System.Console]::OpenStandardInput())

@@ -1,7 +1,8 @@
 # Define vars
 $googleUpdateUrl = "https://clients2.google.com/service/update2/crx"
 $edgeUpdateUrl = "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
-$correctExtensionID = "oeclndhlgfilojjhmciifnjopekeieei"
+$chromeExtensionID = "oeclndhlgfilojjhmciifnjopekeieei"
+$edgeExtensionID = "mhaojmcnomblooljdnembgmajlmoecin"
 
 # Define the source folder path and output zip file names
 $srcFolderPath = "src"
@@ -50,7 +51,7 @@ Ensure-Folder -folderPath $edgeFolder
 # Update nativehost.json with the correct extension ID
 Write-Output "Updating extension ID in nativehost.json..."
 $nativeHost = Get-Content -Raw -Path $nativeHostPath | ConvertFrom-Json
-$nativeHost.allowed_origins = @("chrome-extension://$correctExtensionID/")
+$nativeHost.allowed_origins = @("chrome-extension://$chromeExtensionID/", "chrome-extension://$edgeExtensionID/")
 $nativeHost | ConvertTo-Json -Depth 4 | Set-Content -Path $nativeHostPath
 
 # Read the original manifest

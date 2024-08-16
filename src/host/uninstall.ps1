@@ -11,11 +11,22 @@
 $RegistryPath = "HKCU:\Software\Google\Chrome\NativeMessagingHosts\com.asheroto.regjump"
 Remove-Item -Path $RegistryPath -Force -ErrorAction SilentlyContinue
 
+Write-Output "Registry entry deleted successfully."
+Write-Output ""
+
 # ============================================================================ #
-# Complete
+# Remove the RegJump directory
 # ============================================================================ #
 
-Write-Output "Registry entry deleted successfully."
+$localAppData = $ENV:LOCALAPPDATA
+$destinationPath = Join-Path -Path $localAppData -ChildPath "Registry Jumper"
+
+if (Test-Path -Path $destinationPath) {
+    Remove-Item -Path $destinationPath -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Output "Registry Jumper directory deleted successfully."
+} else {
+    Write-Output "Registry Jumper directory not found."
+}
 Write-Output ""
 
 # ============================================================================ #

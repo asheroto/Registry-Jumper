@@ -4,7 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Registry Jumper</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+  <link rel="icon" href="img/icon/16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="img/icon/32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="img/icon/48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="img/icon/64.png" sizes="64x64" type="image/png">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -50,69 +54,206 @@
       padding: 0.2em;
       border-radius: 0.2em;
     }
+
+    h4 {
+      font-weight: 600;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .links p {
+      margin: 0;
+      flex: 1;
+      text-align: center;
+    }
+
+    .links p:not(:last-child) {
+      margin-right: 10px;
+    }
   </style>
 </head>
 
 <body class="container mt-4">
-  <h2>Registry Jumper</h2>
-  <span id="version"></span> by <a id="homepage_url" href="#"><span id="author"></span></a>
+  <a id="homepage_url" href="https://github.com/asheroto/Registry-Jumper" class="text-decoration-none">
+    <h2>Registry Jumper</h2>
+  </a>
+  <span id="version"></span> by asheroto
+  <hr>
+  <div id="how-to-configure">
+    <h4>How to configure (60 second setup):</h4>
+    <p>
+      To complete the setup, run the <code>install.cmd</code> script in the extension's folder. This will download
+      <code>regjump.exe</code> to <code>%LOCALAPPDATA%\Registry Jumper</code> so that the extension can communicate with
+      it.
+    </p>
+    <p>
+      <strong>Click the path below</strong> to copy it to your clipboard. Next, press <strong>Win+R</strong> to open the
+      Run dialog, use <strong>Ctrl+V</strong> to paste the path, and then press <strong>Enter</strong> to run the
+      install script.
+    </p>
+    <p>
+      The <code>install.cmd</code> script is located in the following path:
+    </p>
+    <ul>
+      <li><strong>Chrome (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      </li>
+      <li><strong>Edge (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      </li>
+      <li><strong>Brave (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      </li>
+      <li><strong>Opera (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>
+      </li>
+    </ul>
+    <div class="accordion" id="faqCannotFindPath">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Windows says it cannot find the path
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqCannotFindPath">
+          <div class="accordion-body">
+            If the path can't be found, you may be using a non-default profile. To find your profile path, open <code class="copyable">chrome://version</code> (this works for Edge, Brave, and others) and copy the <code>Profile Path</code> by selecting it and
+            pressing <strong>Ctrl+C</strong>.
+            Next, press <strong>Win+R</strong> to open the Run dialog, paste the profile path, then append it with <code class="copyable">\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code>, and press
+            <strong>Enter</strong>.
+            That should run the install script, but if it doesn't, find the extension path in the <code>Extensions</code> folder and append it with <code>host\install.cmd</code>.
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      Once you've completed the installation, press the Verify button to ensure everything is set up correctly!
+    </p>
+    <div class="mt-3">
+      <button id="verify" class="btn btn-secondary">Verify</button>
+    </div>
+    <div class="mt-3">
+      <div id="status" class="" role="alert"></div>
+    </div>
+  </div>
   <hr>
 
-  <h4>How to configure (takes only 60 seconds):</h4>
-  <p>
-    Register the host program to communicate with RegJump by running the <code>install.cmd</code> script located in the installation folder.
-  </p>
-  <p>
-    <strong>Click the path below</strong> to copy to clipboard, then <strong>press Win+R</strong>, then <strong>paste it</strong> in the Run box, and <strong>press enter</strong> to run the install script.
-  </p>
-  <p>
-    If this path doesn't exist, you may be using a non-default profile. In that case, you can find your Chrome profile path by visiting <code class="copyable">chrome://version</code> and looking at the <code>Profile Path</code> line. Unfortunately, due to
-    Chrome security restrictions, this extension cannot find the profile path automatically.
-  </p>
-  <p>
-    The default installation path is based on your browser and operating system. For example:
-  </p>
-  <ul>
-    <li><strong>Chrome (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code></li>
-    <li><strong>Brave (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code></li>
-    <li><strong>Edge (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Microsoft\Edge\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code></li>
-    <li><strong>Opera (Windows):</strong> <code class="copyable">%LOCALAPPDATA%\Opera Software\Opera Stable\User Data\Default\Extensions\<span class="extension_id"></span>\<span class="version"></span>_0\host\install.cmd</code></li>
-  </ul>
-  <p>
-    If that path doesn't work, try navigating to the extension folder by removing the <code><span class="version"></span>_0\host\install.cmd</code> part. Once there, locate the version number folder, open the <code>host</code> folder, and run the
-    <code>install.cmd</code> script by double-clicking it. If it still doesn't work, please open an <a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">issue</a> on the GitHub repository.
-  </p>
+  <div class="faq">
+    <h4>Frequently Asked Questions</h4>
 
-  When you're done, press the Verify button to make sure everything is up and running!
+    <div class="accordion" id="faqInstall">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="why-install-folder">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstall" aria-expanded="false" aria-controls="collapseInstall">
+            Why does it install to this folder?
+          </button>
+        </h2>
+        <div id="collapseInstall" class="accordion-collapse collapse" aria-labelledby="why-install-folder" data-bs-parent="#faqInstall">
+          <div class="accordion-body">
+            By placing the program in its own dedicated folder rather than the extension directory, we prevent issues
+            caused by updates to the extension or your web browser.
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="mt-3">
-    <button id="verify" class="btn btn-secondary">Verify</button>
+    <div class="accordion" id="faqRunTime">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="does-it-run-all-the-time">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRunTime" aria-expanded="false" aria-controls="collapseRunTime">
+            Does the program run all the time or on startup? Will this slow down my computer?
+          </button>
+        </h2>
+        <div id="collapseRunTime" class="accordion-collapse collapse" aria-labelledby="does-it-run-all-the-time" data-bs-parent="#faqRunTime">
+          <div class="accordion-body">
+            No, RegJump only runs when needed and does not operate in the background, so it won't affect your system's
+            performance.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="faqHowItWorks">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="how-does-this-work">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHowItWorks" aria-expanded="false" aria-controls="collapseHowItWorks">
+            How does this work?
+          </button>
+        </h2>
+        <div id="collapseHowItWorks" class="accordion-collapse collapse" aria-labelledby="how-does-this-work" data-bs-parent="#faqHowItWorks">
+          <div class="accordion-body">
+            Registry Jumper utilizes <a href="https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging" target="_blank">Chrome Native Messaging</a> to interact with RegJump.
+            Chrome sends instructions to a PowerShell script, which interprets the registry key and relays it to
+            RegJump.
+            The source code is available in the install folder or on the <a href="https://github.com/asheroto/Registry-Jumper" target="_blank">GitHub repository</a> if you're
+            interested in learning more.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="faqFixIssues">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="how-to-fix">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFixIssues" aria-expanded="false" aria-controls="collapseFixIssues">
+            How do I fix it if it stops working?
+          </button>
+        </h2>
+        <div id="collapseFixIssues" class="accordion-collapse collapse" aria-labelledby="how-to-fix" data-bs-parent="#faqFixIssues">
+          <div class="accordion-body">
+            If the extension stops working, just run the install script again as outlined above. Sometimes, due to
+            updates or glitches, it may be necessary to rerun the install script.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="faqProblems">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="what-if-problems">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProblems" aria-expanded="false" aria-controls="collapseProblems">
+            What if I run into problems?
+          </button>
+        </h2>
+        <div id="collapseProblems" class="accordion-collapse collapse" aria-labelledby="what-if-problems" data-bs-parent="#faqProblems">
+          <div class="accordion-body">
+            If you run into any problems, please open an <a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">issue</a> on the <a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">GitHub repository</a> so we can
+            address it. We'd much rather fix an issue than find out about it in a negative
+            review! 🙂
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mt-3">
-    <div id="status" class="" role="alert"></div>
-  </div>
 
-  <!-- insert divider -->
   <hr>
 
-  <div class="container">
+  <div class="thanks">
+    <h4>Thank you!</h4>
     <p>Thanks for using Registry Jumper!</p>
-    <p>If you found this extension helpful and would like to show your appreciation, please consider making a small donation to the developer. Your support is invaluable and helps keep the coffee flowing, allowing me to continue creating cool projects like
-      this. This project is not backed by any corporation and relies entirely on my personal time and effort. While I don't receive payment for this work, any donation is greatly appreciated!</p>
-    <div class="button">
-      <!-- Buy Me a Coffee button -->
-      <a href="https://www.buymeacoffee.com/asheroto" target="_blank">
-        <img src="img/bmac.svg" alt="Buy Me a Coffee">
-      </a>
-    </div>
-    <p>If you don't want to support the developer at this time, that's okay too!<br>Enjoy the extension and have a fantastic day! 😊</p>
+    <p>If you found this extension helpful and would like to show your appreciation, please consider making a small
+      donation to the developer. Your support is invaluable and helps keep the coffee flowing, allowing me to continue
+      creating cool projects like
+      this. This project is not backed by any corporation and relies entirely on my personal time and effort. While I
+      don't receive payment for this work, any donation is greatly appreciated!</p>
+
+    <p>If you don't want to support the developer at this time, that's okay too! Enjoy the extension and have a
+      fantastic day! 😊</p>
     <div class="links">
-      <p><a href="#" id="store_url" target="_blank">Rate this extension</a></p>
-      <p><a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">Report bugs or request a new feature</a></p>
-      <p><a href="https://github.com/asheroto/Registry-Jumper" target="_blank">GitHub repository</a></p>
+      <div class="button">
+        <!-- Buy Me a Coffee button -->
+        <a href="https://www.buymeacoffee.com/asheroto" target="_blank">
+          <img src="img/bmac.svg" alt="Buy Me a Coffee">
+        </a>
+      </div>
+      <p><a href="#" id="store_url" target="_blank">⭐ Rate this extension</a></p>
+      <p><a href="https://github.com/asheroto/Registry-Jumper/issues" target="_blank">🐛 Report bugs or request a new
+          feature</a></p>
+      <p><a href="https://github.com/asheroto/Registry-Jumper" target="_blank">🐙 GitHub repository</a></p>
     </div>
   </div>
 
+  <script src="libs/bootstrap/js/bootstrap.min.js"></script>
   <script src="options.js"></script>
 </body>
 
