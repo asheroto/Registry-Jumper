@@ -137,4 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Store Name:', storeName);
     console.log('Store URL:', storeUrl);
   }
+
+  // Link to the extension on the store
+  let storeUrlElement = document.getElementById('store_url');
+  storeUrlElement.href = storeUrl;
 });
